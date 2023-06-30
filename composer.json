@@ -1,11 +1,11 @@
 {
-    "name": "nece001/php-decisional-table",
+    "name": "nece001/php-decision-table",
     "description": "PHP 决策表/判决表，使用场景：用多个单个状态判断对象的综合状态",
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Nece\\DecisionalTable\\": "src/"
+            "Nece\\DecisionTable\\": "src/"
         }
     },
     "authors": [
