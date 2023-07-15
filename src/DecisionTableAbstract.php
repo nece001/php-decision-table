@@ -46,15 +46,15 @@ abstract class DecisionTableAbstract
      * @Author nece001@163.com
      * @DateTime 2023-06-30
      *
-     * @param array $condition 条件
+     * @param array $rule 规则条件
      * @param mixed $action 结果
      *
      * @return void
      */
-    protected function addRule(array $condition, $action)
+    protected function addRule(array $rule, $action)
     {
         $this->table[] = array(
-            'condition' => $condition,
+            'rules' => $rule,
             'action' => $action,
         );
     }
@@ -73,11 +73,11 @@ abstract class DecisionTableAbstract
     public function decide(array $data, $no_field = false)
     {
         foreach ($this->table as  $row) {
-            $conditions = $row['condition'];
+            $rules = $row['rules'];
             $action = $row['action'];
 
             $result = true;
-            foreach ($conditions as $key => $value) {
+            foreach ($rules as $key => $value) {
                 if (isset($data[$key])) {
                     $result = $result && ($data[$key] === $value);
                 } else {
@@ -94,7 +94,7 @@ abstract class DecisionTableAbstract
     }
 
     /**
-     * 获取决策条件
+     * 获取所有规则
      *
      * @Author nece001@163.com
      * @DateTime 2023-06-30
@@ -103,7 +103,7 @@ abstract class DecisionTableAbstract
      *
      * @return array
      */
-    public function condition($action)
+    public function getRules($action)
     {
         $data = array();
         foreach ($this->table as $row) {
@@ -113,5 +113,26 @@ abstract class DecisionTableAbstract
         }
 
         return $data;
+    }
+
+    /**
+     * 获取一条规则
+     *
+     * @Author nece001@163.com
+     * @DateTime 2023-07-15
+     *
+     * @param mixed $action
+     *
+     * @return array
+     */
+    public function getRule($action)
+    {
+        foreach ($this->table as $row) {
+            if ($row['action'] == $action) {
+                return $row;
+            }
+        }
+
+        return array();
     }
 }
